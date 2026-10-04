@@ -1,0 +1,192 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+
+        <!-- Brand -->
+        <a class="navbar-brand fw-bold fs-4" href="/">
+            Blog It ✍️
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <!-- Navigation -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <!-- Home -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        Home
+                    </a>
+                </li>
+
+
+                <% if (locals.user) { %>
+
+                    <!-- Add Blog -->
+                    <li class="nav-item ms-lg-2">
+                        <a
+                            class="nav-link"
+                            href="/blog/add-new-blog"
+                        >
+                            + Add Blog
+                        </a>
+                    </li>
+
+
+                    <!-- User Dropdown -->
+                    <li class="nav-item dropdown ms-lg-3">
+
+                        <a
+                            class="nav-link dropdown-toggle d-flex align-items-center"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+
+                            <span class="user-avatar me-2">
+                                <%= locals.user.fullName.charAt(0).toUpperCase() %>
+                            </span>
+
+                            <%= locals.user.fullName %>
+
+                        </a>
+
+
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+
+                            <li>
+                                <h6 class="dropdown-header">
+                                    <%= locals.user.fullName %>
+                                </h6>
+                            </li>
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            <li>
+                                <a
+                                    class="dropdown-item text-danger"
+                                    href="/user/signout"
+                                >
+                                    Logout
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                <% } else { %>
+
+                    <!-- Signup -->
+                    <li class="nav-item ms-lg-2">
+                        <a
+                            class="nav-link"
+                            href="/user/signup"
+                        >
+                            Create Account
+                        </a>
+                    </li>
+
+
+                    <!-- Login -->
+                    <li class="nav-item ms-lg-2">
+
+                        <a
+                            class="btn btn-primary px-3"
+                            href="/user/signin"
+                        >
+                            Login
+                        </a>
+
+                    </li>
+
+                <% } %>
+
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- Error Alert -->
+
+<% if (locals.error) { %>
+
+    <div class="container mt-3">
+
+        <div
+            class="alert alert-danger alert-dismissible fade show shadow-sm"
+            role="alert"
+        >
+            <%= locals.error %>
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+
+        </div>
+
+    </div>
+
+<% } %>
+
+
+<style>
+
+    .navbar {
+        min-height: 64px;
+    }
+
+    .navbar-brand {
+        letter-spacing: -0.5px;
+    }
+
+    .user-avatar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #0d6efd;
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .dropdown-menu {
+        border: none;
+        border-radius: 10px;
+    }
+
+    .nav-link {
+        transition: opacity 0.2s ease;
+    }
+
+    .nav-link:hover {
+        opacity: 0.8;
+    }
+
+</style>

@@ -1,2 +1,3 @@
 // Create the functionality of likes
-// functionality of views
+// Create the functionality of views
+// Help to add functionality of Rest-Apis support for

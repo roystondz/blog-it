@@ -1,10 +1,11 @@
 const Comment = require('../models/comment');
 const Blog = require('../models/blog');
+const BlogError = require('../errors/blogError');
 
 
 async function createBlog(req, res) {
     const { title, body } = req.body;
-    console.log('Request body:', req.body);
+
     try {
         const newBlog = await Blog.create({
             title,
@@ -25,7 +26,7 @@ async function getBlogById(req, res) {
     try {
         const blog = await Blog.findById(blogId).populate('createdBy', 'fullName email');
         if (!blog) {
-            return res.status(404).json({ message: 'Blog not found' });
+            return res.status(404).json({ message: BlogError.BLOG_NOT_FOUND});
         }
         const comments = await Comment.find({blogId:blogId}).populate('createdBy', 'fullName email profileImage').sort({ createdAt: -1 });
         console.log('Blog:', blog, 'Comments:', comments);

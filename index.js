@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser')
 const userRoutes = require('./routes/user');
 const blogRoutes = require('./routes/blog');
 const commentRoutes = require('./routes/comment');
+const ssrRoutes = require('./routes/ssr'); 
 const authMiddleware = require('./middlewares/auth');
 const blog = require('./models/blog');
 
@@ -34,10 +35,8 @@ app.use('/user', userRoutes);
 app.use('/blog', blogRoutes);
 app.use('/comment', commentRoutes);
 
-app.get('/',async (req, res)=>{
-    const blogs = await blog.find({}).populate('createdBy','fullName email').sort({ createdAt: -1 });
-    res.render('home',{ user: req.user,blogs});
-})
+// SSR routes
+app.use('/', ssrRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);

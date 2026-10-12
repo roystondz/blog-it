@@ -13,6 +13,9 @@ async function createBlog(req, res) {
             coverImage: `/uploads/${req.file.filename}`,
             createdBy: req.user.id
         });
+        if (req.headers.accept && req.headers.accept.includes('application/json')) {
+            return res.status(201).json({ message: 'Blog created successfully', blogId: newBlog._id });
+        }
         return res.redirect(`/blog/${newBlog._id}`);
     }catch (error) {
         return res.status(500).json({ message: 'Server error', error: error.message });
@@ -29,7 +32,9 @@ async function getBlogById(req, res) {
             return res.status(404).json({ message: BlogError.BLOG_NOT_FOUND});
         }
         const comments = await Comment.find({blogId:blogId}).populate('createdBy', 'fullName email profileImage').sort({ createdAt: -1 });
-        console.log('Blog:', blog, 'Comments:', comments);
+        if (req.headers.accept && req.headers.accept.includes('application/json')) {
+            return res.status(200).json({ blog, comments });
+        }
         return res.render("blog", { user: req.user, blog, comments });
     } catch (error) {
         return res.status(500).json({ message: 'Server error', error: error.message });

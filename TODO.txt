@@ -1,5 +1,5 @@
 // Create the functionality of likes
 // Create the functionality of views
-// Help to add functionality of Rest-Apis support for
+// ~Help to add functionality of Rest-Apis support for~ RESOLVED
 // ~Support for cookies and headers~ RESOLVED
-// ~Separate erros toa directory~
+// ~Separate erros toa directory~ RESOLVED
